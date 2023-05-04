@@ -92,9 +92,27 @@ nav.addEventListener("mouseout", handleHover.bind(1));
 // sticky menu
 const initialCoords = section1.getBoundingClientRect();
 window.addEventListener("scroll", function (e) {
-  console.log(window.scrollY);
   if (window.scrollY > initialCoords.top) nav.classList.add("sticky");
   else nav.classList.remove("sticky");
+});
+
+//reveal section
+const allSection = document.querySelectorAll(".section");
+
+const revealSection = function (entries, observer) {
+  const [entry] = entries;
+  // if (!entry.isIntersecting) return;
+  entry.target.classList.remove("section--hidden");
+};
+
+const sectionObserver = new IntersectionObserver(revealSection, {
+  root: null,
+  threshold: 0.5,
+});
+
+allSection.forEach(function (section) {
+  sectionObserver.observe(section);
+  section.classList.add("section--hidden");
 });
 
 // ******************************** ******************************** Practice Code for this project  ******************************** ********************************
